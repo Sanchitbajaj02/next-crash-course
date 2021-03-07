@@ -1,7 +1,8 @@
 import React from "react";
 import Head from "next/head";
+import ArticleList from '../Components/ArticleList'
 
-const index = () => {
+const index = ({ articles }) => {
   return (
     <div>
       <Head>
@@ -11,9 +12,22 @@ const index = () => {
           content="web development, programming, react, next"
         />
       </Head>
-      <h1>Welcome to index</h1>
+      <ArticleList articles={articles} />
     </div>
   );
 };
 
 export default index;
+
+export const getStaticProps = async () => {
+  const res = await fetch(
+    "https://jsonplaceholder.typicode.com/posts?_limit=6"
+  );
+  const articles = await res.json();
+
+  return {
+    props: {
+      articles,
+    },
+  };
+};
