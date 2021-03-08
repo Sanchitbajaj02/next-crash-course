@@ -13,7 +13,15 @@ const index = ({ articles }) => {
 export default index;
 
 export const getStaticProps = async () => {
-  const res = await fetch(`${server}/api/articles`);
+  // const res = await fetch(`${server}/api/articles`);
+  // const articles = await res.json();
+
+  const res = await fetch(`${server}/api/articles`, {
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': '*',
+    },
+  });
   const articles = await res.json();
 
   return {

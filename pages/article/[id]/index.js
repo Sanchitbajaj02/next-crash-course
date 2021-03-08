@@ -18,10 +18,12 @@ const article = ({ article }) => {
 };
 
 export const getStaticProps = async (context) => {
-  const res = await fetch(
-    `${server}/api/articles/${context.params.id}`
-  )
-
+  const res = await fetch(`${server}/api/articles/${context.params.id}`, {
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': '*',
+    },
+  })
   const article = await res.json()
 
   return {
