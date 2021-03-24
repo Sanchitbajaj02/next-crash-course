@@ -1,12 +1,12 @@
 import React from "react";
-import Meta from '../Components/Meta'
+import Meta from "../Components/Meta";
 
 const about = () => {
   return (
-    <div>
-      <Meta title="About" />
+    <>
+      <Meta title="WebDev Newz | About" />
       <h1>About page</h1>
-    </div>
+    </>
   );
 };
 

@@ -1,16 +1,17 @@
-import { server } from "../../../config/index";
+import { server } from "../../../config";
 import React from "react";
 import Link from "next/link";
-import Meta from '../../../Components/Meta'
+import Meta from "../../../Components/Meta";
 
 const article = ({ article }) => {
-
   return (
     <React.Fragment>
       <Meta title={article.title} description={article.excerpt} />
-      <p>Article: {article.id}</p>
-      <h1>{article.title}</h1>
-      <p>{article.body}</p>
+      <div style={{ margin: "0 3rem", textAlign: "center" }}>
+        <p>Article: {article.id}</p>
+        <h1>{article.title}</h1>
+        <p>{article.body}</p>
+      </div>
       <br />
       <Link href="/">Go Back</Link>
     </React.Fragment>
@@ -18,34 +19,29 @@ const article = ({ article }) => {
 };
 
 export const getStaticProps = async (context) => {
-  const res = await fetch(`${server}/api/articles/${context.params.id}`, {
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'User-Agent': '*',
-    },
-  })
-  const article = await res.json()
+  const res = await fetch(`${server}/api/articles/${context.params.id}`);
+  const article = await res.json();
 
   return {
     props: {
       article,
     },
-  }
-}
+  };
+};
 
 export const getStaticPaths = async () => {
-  const res = await fetch(`${server}/api/articles`)
+  const res = await fetch(`${server}/api/articles`);
 
-  const articles = await res.json()
+  const articles = await res.json();
 
-  const ids = articles.map((article) => article.id)
-  const paths = ids.map((id) => ({ params: { id: id.toString() } }))
+  const ids = articles.map((article) => article.id);
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
 
   return {
     paths,
     fallback: false,
-  }
-}
+  };
+};
 
 // export const getStaticProps = async (context) => {
 //   const res = await fetch(
